@@ -1478,7 +1478,7 @@
         <!-- Bộ đếm Ngày và Giờ thời gian thực chính xác -->
         <div class="live-clock-badge" id="liveClockBadge" title="Thời gian thực">
           <i class="fa-regular fa-clock"></i>
-          <span class="live-clock-time" id="liveClockTime">21:55:44</span>
+          <span class="live-clock-time" id="liveClockTime">22:48:02</span>
           <span class="live-clock-sep">•</span>
           <i class="fa-regular fa-calendar-days"></i>
           <span class="live-clock-date" id="liveClockDate">Thứ Sáu, 23/10/2026</span>
@@ -1487,7 +1487,7 @@
         <!-- Thống kê số lượt xem trang (Views Counter) -->
         <div class="views-counter-badge" id="viewsCounterBadge" title="Tổng số lượt xem trang">
           <i class="fa-solid fa-eye"></i>
-          <span class="views-count" id="viewsCount">1.301</span>
+          <span class="views-count" id="viewsCount">1.302</span>
           <span class="views-label">lượt xem</span>
         </div>
       </div>
@@ -1572,10 +1572,10 @@
       <!-- Timeline & Progress -->
       <div class="progress-box">
         <div class="progress-bar-container" id="progressContainer">
-          <div class="progress-bar" id="progressBar" style="width: 2.62277%;"></div>
+          <div class="progress-bar" id="progressBar" style="width: 3.15306%;"></div>
         </div>
         <div class="time-info">
-          <span id="currentTime">0:07</span>
+          <span id="currentTime">0:08</span>
           <span id="duration">4:40</span>
         </div>
       </div>
@@ -2725,7 +2725,7 @@
           if (!putTrackRes.ok) {
             const trackErr = await putTrackRes.json().catch(() => ({}));
             if (putTrackRes.status === 401) {
-              throw new Error(`Lỗi xác thực (Bad credentials) khi đẩy file "${trackName}". Token GitHub chưa đủ quyền ghi tệp (yêu cầu quyền "repo" với classic token hoặc "Contents: Read and write" với fine-grained token).`);
+              throw new Error(`Lỗi xác thực (Bad credentials) khi đẩy file "${trackName}". Do Token của bạn chưa được cấp quyền "repo" để ghi tệp vào kho lưu trữ, hoặc do file nhạc (~5MB) vượt quá hạn mức tải lên của REST API trình duyệt.`);
             }
             throw new Error(`Lỗi khi đẩy file nhạc "${trackName}": ${trackErr.message || putTrackRes.statusText}`);
           }
@@ -2849,8 +2849,16 @@
           <div style="font-weight: 700; margin-bottom: 6px; display: flex; align-items: center; gap: 7px;">
             <i class="fa-solid fa-circle-exclamation" style="color: #ef4444;"></i> Deploy thất bại:
           </div>
-          <div style="font-size: 0.78rem; line-height: 1.4;">
+          <div style="font-size: 0.78rem; line-height: 1.45; margin-bottom: 10px;">
             ${error.message || 'Đã có lỗi không xác định xảy ra trong quá trình deploy.'}
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 7px; margin-top: 10px;">
+            <a href="https://github.com/settings/tokens/new?scopes=repo&description=BioLinkDeploy" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; gap: 7px; padding: 8px 12px; background: rgba(0,240,255,0.12); border: 1px solid var(--neon-cyan); border-radius: 8px; color: var(--neon-cyan); font-size: 0.78rem; text-decoration: none; font-weight: 600;">
+              <i class="fa-solid fa-key"></i> Tạo lại Token chuẩn quyền repo (1 click)
+            </a>
+            <div style="font-size: 0.74rem; color: #cbd5e1; background: rgba(255,255,255,0.06); padding: 8px 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.12); line-height: 1.4;">
+              💡 <strong>Cách deploy nhanh nhất (100% không lỗi):</strong> Mở thư mục <code>d:\\web</code> và nhấp đúp file <code>deploy_nhanh.bat</code>. Hệ thống sẽ tự đẩy toàn bộ website và 5 bài nhạc chill lên GitHub Pages mà không bị giới hạn dung lượng trình duyệt!
+            </div>
           </div>
         `);
       } finally {
